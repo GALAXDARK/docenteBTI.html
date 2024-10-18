@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicación de Aula </title>
+  <style>
+    /* Estilo del cuerpo de la página, define la fuente, márgenes, color de fondo y color de texto */
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+  
+    /* Estilo del encabezado, define el color de fondo, color de texto, padding, alineación de texto y sombra */
+    header {
+      background-color: #b71c1c;
+      color: white;
+      padding: 1em 0;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    /* Estilo del encabezado específico, define la disposición de los elementos, colores, padding y posición */
+    .headerr {
+      display: flex;
+      background-color: #b71c1c;
+      color: white;
+      padding: 0.5em 1em;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+  
+    /* Estilo para el texto del encabezado con una fuente cursiva */
+    .com {
+      font-family: 'Dancing Script', cursive;
+    }
+  
+    /* Estilo para el logo, define el tamaño y márgenes */
+    .logo-img {
+      width: 100px;
+      height: auto;
+      margin-right: 1em;
+    }
+  
+    /* Estilo para los botones modales, define colores, padding, bordes y transición */
+    .modal-button, .btn, .btna, .btne {
+      background-color: #d32f2f;
+      color: white;
+      padding: 0.5em 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.2s ease;
+    }
+  
+    /* Estilo específico para botones modales pequeños */
+    .modal-button2 {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+  
+    /* Estilo para el hover de los botones modales */
+    .modal-button:hover, .btn:hover {
+      background-color: #c62828;
+    }
+  
+    /* Estilo para los títulos de la página, define peso de fuente y márgenes */
+    h1, h2, h3 {
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+  
+    /* Estilo específico para h1, define tamaño de fuente */
+    h1 {
+      font-size: 26px;
+    }
+  
+    /* Estilo específico para h2, define tamaño de fuente y color */
+    h2 {
+      font-size: 20px;
+      color: #d32f2f;
+    }
+  
+    /* Estilo específico para h3, define tamaño de fuente y color */
+    h3 {
+      font-size: 18px;
+      color: #b71c1c;
+    }
+  
+    /* Estilo para el contenido principal, define padding, tamaño máximo, márgenes, sombra y bordes */
+    main {
+      padding: 2em;
+      max-width: 800px;
+      margin: 2em auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border-radius: 10px;
+    }
+  
+    /* Estilo para el pie de página, define colores, alineación de texto, padding y posición */
+    footer {
+      background-color: #d32f2f;
+      color: white;
+      text-align: center;
+      padding: 1em 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  
+    /* Estilo para las imágenes del menú principal, define tamaño */
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  
+    /* Estilo para listas y tarjetas, define disposición, flexibilidad y márgenes */
+    .menu-list, .class-list, .task-list, .message-list, .bloc-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+  
+    /* Estilo para los elementos de lista y tarjetas, define color de fondo, padding, bordes y sombras */
+    .menu-item, .class-card, .task-item, .message-card, .note-item {
+      background-color: #f7f7f7;
+      padding: 1em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      flex: 1 1 calc(33.333% - 1em);
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+  
+    /* Estilo específico para los elementos de lista, define color de fondo, bordes y transición */
+    .menu-item {
+      border-radius: 12px;
+      border: 2px solid #b71c1c;
+      background-color: #ffffff;
+      transition: background-color 0.3s ease;
+    }
+  
+    /* Estilo para el hover de los elementos de lista */
+    .menu-item:hover {
+      background-color: #e57373;
+      transform: scale(1.05);
+    }
+  
+    /* Estilo para las tablas, define colapso de bordes, márgenes y tamaño */
+    table {
+      border-collapse: collapse;
+      margin-top: 1em;
+      width: 100%;
+    }
+  
+    /* Estilo para las celdas de la tabla, define padding, alineación de texto y bordes */
+    th, td {
+      padding: 0.5em;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+  
+    /* Estilo específico para las celdas de encabezado de la tabla, define color de fondo */
+    th {
+      background-color: #f2f2f2;
+    }
+  
+    /* Estilo para los cuadros de diálogo, define posición, color de fondo, padding y bordes */
+    .dialog {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 1em;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    /* Estilo para los botones dentro de los cuadros de diálogo, define márgenes */
+    .dialog button {
+      margin: 0.5em;
+    }
+  
+    /* Estilo para el formulario de edición, define visibilidad */
+    .edit-form {
+      display: none;
+    }
+  
+    /* Estilo específico para el Bloc de Notas, define márgenes */
+    .bloc-container {
+      margin-bottom: 2em;
+    }
+  
+    /* Estilo para las etiquetas de formulario, define disposición y márgenes */
+    form label {
+      display: block;
+      margin-top: 1em;
+    }
+  
+    /* Estilo para los campos de texto, textarea y fecha, define tamaño, padding, bordes y márgenes */
+    form input[type="text"], form textarea, form input[type="date"] {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.5em;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+  
+    /* Estilo para los elementos de lista de notas, define tipo de lista, márgenes y bordes */
+    .note-item {
+      list-style-type: none;
+      margin-bottom: 1em;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    /* Estilo para los títulos de las notas, define márgenes */
+    .note-item h4 {
+      margin: 0 0 0.5em 0;
+    }
+  
+    /* Estilo para los párrafos de las notas, define márgenes */
+    .note-item p {
+      margin: 0.5em 0;
+    }
+  
+    /* Estilo para el modal del menú, define posición, color de fondo, tamaño y sombra */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  
+    /* Estilo para el contenido del modal del menú, define color de fondo, padding, tamaño y sombra */
+    .modal-content {
+      background-color: #ffffff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2 );
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  
+    /* Estilo para el botón de cierre del modal del menú, define color, tamaño, peso de fuente y cursor */
+    .close {
+      color: #333;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+  
+    /* Estilo para el hover del botón de cierre del modal del menú, define color */
+    .close:hover,
+    .close:focus {
+      color: #b71c1c;
+    }
+  
+    /* Estilo para los botones del modal del menú, define color de fondo, color de texto, padding, bordes y cursor */
+    .modal-button {
+      background-color: #d32f2f;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      margin: 10px auto;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+  
+    /* Estilo para el hover de los botones del modal del menú, define color de fondo y transformación */
+    .modal-button:hover {
+      background-color: #b71c1c;
+      transform: scale(1.05);
+    }
+  
+    /* Animación de aparición para el modal del menú */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* Estilo adicional para las notas, define tamaño de tabla y bordes */
+    .table {
+      border-collapse: collapse;
+      margin-top: 1em;
+      width: auto;
+    }
+  
+    /* Estilo para las celdas de la tabla de notas, define bordes y padding */
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+  
+    /* Estilo para las celdas de encabezado de la tabla de notas, define color de fondo y padding */
+    th, td {
+      padding: 1.5em;
+      text-align: left;
+    }
+  
+    /* Estilo para las celdas de encabezado de la tabla de notas, define color de fondo */
+    th {
+      background-color: #f2f2f2;
+      white-space: nowrap;
+    }
+  
+    /* Estilo para los botones de agregar, eliminar, establecer límites, editar y guardar, define color de fondo, color de texto, padding, bordes y cursor */
+    .add-button, .delete-button, .set-limits-button, .edit-button, .save-button {
+      background-color: #B22222;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+  
+    /* Estilo específico para el botón de eliminar, define color de fondo */
+    .delete-button {
+      background-color: #8B0000;
+    }
+  
+    /* Estilo específico para el botón de editar, define color de fondo */
+    .edit-button {
+      background-color: #FF3737;
+    }
+  
+    /* Estilo específico para el botón de guardar, define color de fondo */
+    .save-button {
+      background-color: #FFC080;
+    }
+  
+    /* Estilo para el hover de los botones de agregar, eliminar, establecer límites, editar y guardar, define color de fondo */
+    .add-button:hover, .delete-button:hover, .set-limits-button:hover, .edit-button:hover, .save-button:hover {
+      background-color:#FF3737;
+    }
+  
+    /* Estilo para el botón de cierre, define color, tamaño y peso de fuente */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  
+    /* Estilo para el hover del botón de cierre, define color y texto decorado */
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  
+    /* Estilo para las fechas importantes, define peso de fuente y márgenes */
+    .important-date h3 {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  
+    /* Estilo para las fechas importantes, define márgenes */
+    .important-date p {
+      margin-bottom: 10px;
+    }
+
+    /* Estilo paar centrar las tareas importantes en la lista de div */
+    #importantDatesList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+    .important-date-item {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    }
+  
+    /* Estilo para los botones de editar y eliminar, define color de fondo, color de texto, padding, bordes y cursor */
+    .edit-button, .delete-button {
+      background-color: #d32f2f;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+  
+    /* Estilo para el hover de los botones de editar y eliminar, define color de fondo */
+    .edit-button:hover, .delete-button:hover {
+      background-color: #c62828;
+    }
+  
+    /* Estilo para el modal de agregar fecha, define color de fondo, padding, tamaño y sombra */
+    #addDateModal .modal-content {
+      background-color: #ffffff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  
+    /* Estilo para el título del modal de agregar fecha, define peso de fuente y márgenes */
+    #addDateModal .modal-content h3 {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    /* Estilo para las etiquetas del modal de agregar fecha, define disposición y márgenes */
+    #addDateModal .modal-content label {
+      display: block;
+      margin-top: 10px;
+    }
+  
+    /* Estilo para los campos de fecha y textarea del modal de agregar fecha, define tamaño, padding, bordes y márgenes */
+    #addDateModal .modal-content input[type="date"], #addDateModal .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+  
+    /* Estilo para los botones del modal de agregar fecha, define color de fondo, color de texto, padding, bordes y cursor */
+    #addDateModal .modal-content button[type="button"], #addDateModal .modal-content button[type="submit"] {
+      background-color: #d32f2f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
+    }
+  
+    /* Estilo para el hover de los botones del modal de agregar fecha, define color de fondo */
+    #addDateModal .modal-content button[type="button"]:hover, #addDateModal .modal-content button[type="submit"]:hover {
+      background-color: #c62828;
+    }
+  
+    /* Media query para dispositivos con pantalla pequeña, define estilos para tabla, celdas, encabezado y botones */
+    @media (max-width: 768px) {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 0.2em;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      tbody {
+        width: 100%;
+        height: auto;
+      }
+      .edit-button, .save-button, .delete-button {
+        width: 100%;
+        padding: 5px;
+        font-size: 12px;
+      }
+  
+      nav {
+        flex-direction: column;
+      }
+  
+      .nav-links {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1em;
+      }
+  
+      .nav-links button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+  
+      .menu-item, .class-card, .task-item, .message-card, .note-item {
+        flex: 1 1 calc(50% - 1em);
+      }
+  
+      table, th, td {
+        font-size: 14px;
+      }
+    }
+  
+    /* Media query para dispositivos con pantalla muy pequeña, define estilos para elementos de lista, títulos, imágenes, botones y más */
+    @media (max-width: 480px) {
+      .menu-item {
+        flex: 1 1 calc(50% - 1em);
+        padding: 0.5em;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0,  0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        width: 250px;
+        height: 100px;
+      }
+  
+      .menu-item h3 {
+        font-size: 16px;
+      }
+  
+      .menu-item img {
+        width: 40px;
+        height: 40px;
+      }
+  
+      .btn {
+        padding: 0.2em 0.5em;
+        font-size: 14px;
+      }
+  
+      .menu-overview {
+        font-size: 14px;
+      }
+  
+      h1, h2, h3 {
+        font-size: 18px;
+      }
+  
+      p {
+        font-size: 14px;
+        margin-top: 0.5px;
+      }
+  
+      header {
+        padding: 0.5em 0;
+      }
+  
+      .add-button, .delete-button, .set-limits-button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+  
+      table {
+        font-size: 0.8em;
+      }
+  
+      .edit-button, .save-button, .delete-button {
+        width: 30px;
+        height: 30px;
+        box-sizing: border-box;
+        padding: 5px;
+        font-size: 8px;
+        margin: 2px 0;
+      }
+  
+      .headerr {
+        font-size: 0.2em;
+        display: flex;
+        background-color: #b71c1c;
+        color: white;
+        padding: 0.5em 1em;
+        align-items: center;
+        text-align: left;
+        justify-content: space-between;
+      }
+      .modal-button {
+        padding: 4px 8px;
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+      }
+      .logo-img {
+        width: 80px;
+        height: auto;
+        margin-right: 1em;
+      }
+  
+      .com {
+        font-family: 'Dancing Script', cursive;
+        font-size: 25px;
+        margin-left: 20px;
+      }
+  
+      img {
+        width: 60px;
+        height: 60px;
+      }
+  
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2em;
+        background-color: #d32f2f;
+      }
+  
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+        min-width: 300px;
+      }
+  
+      .nav-links button {
+        margin: 0 0.5em;
+      }
+  
+      .btna {
+        padding: 0.5em 1em;
+        font-size: 14px;
+      }
+  
+      .menu-item, .class-card, .task-item, .message-card, .note-item {
+        flex: 1 1 100%;
+      }
+  
+      main {
+        padding: 1em;
+      }
+  
+      header {
+        padding: 0.5em 0;
+      }
+  
+      footer {
+        padding: 0.5em 0;
+      }
+  
+      .btn {
+        width: 100%;
+        box-sizing: border-box;
+      }
+  
+      table, th, td {
+        font-size: 0.75em;
+      }
+
+      .date-actions {
+    flex-direction: column;
+  }
+
+  .date-actions button {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+      
+    }
+  </style>
+
+  <style>
+    /* Estilos generales para los modales */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed; /* Fijo en la pantalla */
+  z-index: 1; /* Asegura que esté por encima de otros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Alto completo */
+  overflow: auto; /* Habilita el desplazamiento si es necesario */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: #ffffff; /* Fondo blanco */
+  margin: auto; /* Centrado horizontalmente */
+  padding: 20px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde gris claro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+  border-radius: 10px; /* Bordes redondeados */
+  width: 80%; /* Ancho del modal */
+  max-width: 500px; /* Ancho máximo */
+  position: relative; /* Posición relativa para el cierre */
+}
+
+/* Estilos para la "X" de cierre */
+.close {
+  color: #aaa; /* Color gris claro */
+  float: right; /* Alineado a la derecha */
+  font-size: 28px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  cursor: pointer; /* Cursor de puntero */
+}
+
+/* Cambiar color al pasar el mouse */
+.close:hover,
+.close:focus {
+  color: black; /* Color negro al pasar el mouse */
+  text-decoration: none; /* Sin subrayado */
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%; /* Ancho del modal en dispositivos móviles */
+    padding: 15px; /* Espaciado interno reducido */
+  }
+
+  .close {
+    font-size: 24px; /* Tamaño de fuente más pequeño para la "X" */
+  }
+  
+}
+
+/* Estilos para el modal de edición de tareas */
+#editModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#editModal .modal-content {
+    background-color: #f8f9fa;
+    margin: 10% auto;
+    padding: 30px;
+    border: none;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+#editModal h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+#editModal label {
+    display: block;
+    margin-top: 15px;
+    color: #555;
+    font-weight: bold;
+}
+
+#editModal input[type="text"],
+#editModal textarea,
+#editModal input[type="date"],
+#editModal input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#editModal textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+#editModal #saveEditButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#editModal #saveEditButton:hover {
+    background-color: #0056b3;
+}
+
+#editModal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#editModal .close:hover {
+    color: #333;
+}
+
+/* Estilos para el botón de cancelar */
+#editModal #cancelEditButton {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#editModal #cancelEditButton:hover {
+    background-color: #5a6268;
+}
+
+/* Contenedor para los botones */
+#editModal .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#editModal .button-container button {
+    width: 48%; /* Ajusta este valor según prefieras */
+}
+
+/* Ajuste responsivo para los botones */
+@media (max-width: 768px) {
+    #editModal .button-container {
+        flex-direction: column;
+    }
+
+    #editModal .button-container button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    #editModal #cancelEditButton {
+        margin-top: 10px;
+    }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    #editModal .modal-content {
+        margin: 20% auto;
+        padding: 20px;
+    }
+
+    #editModal h2 {
+        font-size: 20px;
+    }
+
+    #editModal input[type="text"],
+    #editModal textarea,
+    #editModal input[type="date"],
+    #editModal input[type="file"] {
+        font-size: 14px;
+    }
+
+    #editModal #saveEditButton {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+  </style>
+
+
+  <style>
+  /* Estilos para el modal de confirmación */
+  #confirmModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Estilos adicionales para mejorar la apariencia en dispositivos móviles */
+  @media (max-width: 600px) {
+    .modal-content {
+      width: 90%;
+      margin: 10% auto;
+      font-size: 14px;
+    }
+  }
+  </style>
+</head>
+<body>
+
+    <header class="headerr">
+      
+      <h1 class="com">COMENIUS</h1>
+      <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+      <!-- Botón para abrir el menú modal -->
+      <img id="openModalBtn" class="modal-button2" src="puntos.png" alt="Menú">
+
+      <!-- El Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Menú Principal</h2>
+    
+    <button class="modal-button" id="navInicio">INICIO</button>
+    
+    <button class="modal-button" id="navClases">CLASES</button>
+    
+    <button class="modal-button" id="navCreacionTareas">CREACION DE TAREAS</button>
+    
+    <button class="modal-button" id="navHorario">HORARIOS</button>
+    
+    <button class="modal-button" id="navPerfil">PERFIL</button>
+    
+    <button class="modal-button" id="navBlocNotas">BLOC DE NOTAS</button>
+    
+    <button class="modal-button" id="navNotas">NOTAS</button>
+
+    <button  onclick="window.location.href='otra_pagina.html'" class="modal-button" id="navListaTareas">LISTA DE TAREAS</button>
+
+    <button class="modal-button" id="navCalendar">CALENDARIO</button>
+
+  </div>
+</div>
+
+    </header>
+
+      
+      <main id="mainContent">
+
+
+        <section class="menu-overview">
+          <header><h1>Menú Principal</h1></header>
+          <br>
+          <div class="menu-list">
+            <!-- Elementos de menú principal -->
+            <div class="menu-item" id="viewClasses">
+              <h3>Mis Clases</h3>
+              <img src="clase2.png" alt="">
+              <p>Ver todas las clases</p>
+            </div>
+            
+            <div class="menu-item" id="viewSchedule">
+              <h3>Horario</h3>
+              <img src="calendario.png" alt="">
+              <p>Ver horario de clases</p>
+            </div>
+            
+            <div class="menu-item" id="viewProfile">
+              <h3>Perfil</h3>
+              <img src="perfil.png" alt="">
+              <p>Ver perfil</p>
+            </div>
+            
+            <div class="menu-item" id="viewBlocNotas">
+              <h3>Bloc de Notas</h3>
+              <img src="bloc.png" alt="">
+              <p>Ver y gestionar notas</p>
+            </div>
+            
+            <div class="menu-item" id="viewCrearTareas">
+              <h3>Creacion de Tareas</h3>
+              <img src="libro.png" alt="">
+              <p>Ver la creacion de tareas</p>
+            </div>
+            
+            <div class="menu-item" id="viewNotas">
+              <h3>Notas</h3>
+              <img src="puntaje.png" alt=""> 
+              <p>Ir a Notas</p>
+            </div>
+        
+            <div class="menu-item" id="viewListaTareas">
+              <h3>Lista de Tareas</h3>
+              <img src="tareas-diarias.png" alt="">
+              <p>Ver lista de tareas</p>
+            </div>
+        
+            <div class="menu-item" id="viewCalendar">
+              <h3>Calendario</h3>
+              <img src="calendario.png" alt="">
+              <p>Ver calendario y fechas importantes</p>
+            </div>
+        
+          </div>
+        </section>
+    
+        <!-- Sección de vista de clases -->
+        <section class="class-overview" style="display:none;">
+          <header>
+            <h1>Mis Clases</h1>
+            <button class="btn" id="addNewClassBtn">Agregar nueva clase</button>
+            <button class="btn" id="backToMenuBtn">Volver al Menú</button>
+          </header>
+          <div class="class-list"></div>
+
+          <!-- Modal para agregar nueva clase -->
+          <div id="addNewClassModal" class="dialog">
+            <h3>Agregar Nueva Clase</h3>
+            <form id="newClassForm">
+              <label for="newClassTitle">Título de la clase:</label>
+              <input type="text" id="newClassTitle" name="newClassTitle" required>
+              <label for="newClassInstructor">Instructor:</label>
+              <input type="text" id="newClassInstructor" name="newClassInstructor" required>
+              <label for="newClassMateria">Materia:</label>
+              <input type="text" id="newClassMateria" name="newClassMateria" required>
+              <label for="newClassCurso">Curso:</label>
+              <select id="newClassCurso" name="newClassCurso" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <label for="newClassDescripcion">Descripción (opcional):</label>
+              <textarea id="newClassDescripcion" name="newClassDescripcion" placeholder="Descripción de la clase (opcional)"></textarea>
+              <button class="btn" type="submit">Agregar clase</button>
+              <button class="btn" type="button" id="cancelAddNewClassBtn">Cancelar</button>
+            </form>
+          </div>
+
+          <!-- Modal para editar clase -->
+          <div id="editClassModal" class="dialog">
+            <form id="editClassForm">
+              <h3>Editar Clase</h3>
+              <label for="editClassTitle">Título de la clase:</label>
+              <input type="text" id="editClassTitle" name="editClassTitle" required>
+              <label for="editClassInstructor">Instructor:</label>
+              <input type="text" id="editClassInstructor" name="editClassInstructor" required>
+              <label for="editClassMateria">Materia:</label>
+              <input type="text" id="editClassMateria" name="editClassMateria" required>
+              <label for="editClassCurso">Curso:</label>
+              <select id="editClassCurso" name="editClassCurso" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <label for="editClassDescripcion">Descripción (opcional):</label>
+              <textarea id="editClassDescripcion" name="editClassDescripcion" placeholder="Descripción de la clase (opcional)"></textarea>
+              <button class="btn" type="submit">Guardar</button>
+              <button class="btn" type="button" id="cancelEditClassBtn">Cancelar</button>
+            </form>
+          </div>
+
+          <!-- Modal para crear tarea -->
+          <div id="createTaskModal" class="dialog">
+            <h3>Crear Tarea</h3>
+            <button class="btn" id="createAvisoBtn">Crear Aviso</button>
+            <button class="btn" id="createDocumentoBtn">Crear Documento</button>
+            <button class="btn" type="button" id="cancelCreateTaskBtn">Cancelar</button>
+          </div>
+
+          <!-- Modal para crear aviso -->
+          <div id="createAvisoModal" class="dialog">
+            <form id="avisoForm">
+              <h3>Crear Aviso</h3>
+              <label for="avisoName">Nombre del Aviso:</label>
+              <input type="text" id="avisoName" name="avisoName" required>
+              <label for="avisoDescription">Descripción del Aviso:</label>
+              <textarea id="avisoDescription" name="avisoDescription" required></textarea>
+              <label for="avisoDueDate">Fecha Límite:</label>
+              <input type="date" id="avisoDueDate" name="avisoDueDate" required>
+              <button class="btn" type="submit">Crear Aviso</button>
+              <button class="btn" type="button" id="cancelCreateAvisoBtn">Cancelar</button>
+            </form>
+          </div>
+
+          <!-- Modal para crear documento -->
+          <div id="createDocumentoModal" class="dialog">
+            <form id="documentoForm">
+              <h3>Crear Documento</h3>
+              <label for="documentoName">Nombre del Documento:</label>
+              <input type="text" id="documentoName" name="documentoName" required>
+              <label for="documentoDescription">Descripción del Documento:</label>
+              <textarea id="documentoDescription" name="documentoDescription" required></textarea>
+              <label for="documentoFile">Archivo:</label>
+              <input type="file" id="documentoFile" name="documentoFile" required>
+              <button class="btn" type="submit">Crear Documento</button>
+              <button class="btn" type="button" id="cancelCreateDocumentoBtn">Cancelar</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Sección de lista de clase -->
+        <section class="class-list-view" style="display:none;">
+            <header>
+              <h1>Lista de Clase</h1>
+              <button class="btn" id="backToClassOverviewBtn">Volver a Mis Clases</button>
+            </header>
+            <div class="task-list"></div>
+        </section>
+    
+        <!-- Sección de vista de tareas -->
+        <section class="task-overview" style="display:none;">
+          <header>
+            <h2>Tareas</h2>
+          </header>
+          <div class="task-list">
+            <!-- Elementos de tareas -->
+            
+          <!-- Botón para volver al menú -->
+          <button class="btn" id="backToMenuBtnTasks">Volver al Menú</button>
+        </section>
+
+        <!-- Sección de vista de Creacion de Tareas -->
+        <section id="creacionTareasSection" style="display:none;">
+          <header>
+            <h1>Comenius - Crear Tareas</h1>
+              <button class="btn" id="crear-aviso-btn">Crear Aviso</button>
+              <button class="btn" id="crear-aviso-documento-btn">Crear Aviso de Documento</button>
+              <button class="btn" onclick="location.href='comenius2.html'">Ir a lista</button>
+          </header>
+          <main class="container">
+           
+          <div id="aviso-container"></div>
+          <div id="aviso-documento-container"></div>
+          </main>
+
+          <!-- Modal de confirmación -->
+          <div id="confirmModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeConfirmModal()">&times;</span>
+              <p>La tarea ha sido enviada correctamente.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seccion de Lista de Tareas  -->
+        <section class="lista-tareas-overview" style="display:none;">
+          <header>
+            <h1>Lista de Tareas</h1>
+          </header>
+          <main class="container">
+            <div class="task-list" id="taskList"></div>
+          </main>
+
+          <!-- Modal para confirmación de eliminación -->
+          <div id="deleteModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>¿Estás seguro de que deseas eliminar esta tarea?</p>
+              <button id="confirmDelete" class="btn">Aceptar</button>
+              <button id="cancelDelete" class="btn">Cancelar</button>
+            </div>
+          </div>
+
+          <div id="editModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Editar Tarea</h2>
+              <label for="editTaskName">Nombre:</label>
+              <input type="text" id="editTaskName">
+              <label for="editTaskDescription">Descripción:</label>
+              <textarea id="editTaskDescription"></textarea>
+              <label for="editTaskDueDate">Fecha Límite:</label>
+              <input type="date" id="editTaskDueDate">
+              <label for="editTaskFile">Cambiar Documento (opcional):</label>
+              <input type="file" id="editTaskFile">
+              <div class="button-container">
+                <button id="saveEditButton">Guardar Cambios</button>
+                <button id="cancelEditButton">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección de vista de horario -->
+        <section class="schedule-overview" style="display:none;">
+          <header class="header">
+            <h1>Horario de Clases</h1>
+            <button class="btn" id="btnBti">BTI</button>
+            <button class="btn" id="btnBatam">BATAM</button>
+            <button class="btn" id="btnSalud">SALUD</button>
+          </header>
+          <div id="btiSchedule" class="mi-tabla" style="display: none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7:00 - 7:40</td><td>Orientacion</td><td>Literatura</td><td>Matematica</td><td>Psicologia</td><td>Historia y Geografia</td>
+                </tr>
+                <tr>
+                  <td>7:40 - 8:20</td><td>Orientacion</td><td>Literatura</td><td>Matematica</td><td>Psicologia</td><td>Historia y Geografia</td>
+                </tr>
+                <tr>
+                  <td>8:40 - 9:15</td>  <td>Ciencias Naturales</td><td>Metodologia</td><td>Metodologia</td><td>Algoritmia</td><td>Ingles</td>
+                </tr>
+                <tr>
+                  <td>9:15 - 9:50</td><td>Ciencias Naturales</td><td>Metodologia</td><td>Metodologia</td><td>Algoritmia</td><td>Ingles</td> 
+                </tr>
+                <tr>
+                  <td>9:50 - 10:25</td><td>Economia</td><td>Literatura</td><td>Matematica</td><td>Algoritmia</td><td>Educacion Fisica</td>
+                </tr>
+                <tr>
+                  <td>10:25 - 11:00</td><td>Economia</td><td>Literatura</td><td>Matemática</td><td>Algoritmia</td><td>Educacion Fisica</td>
+                </tr>
+                <tr>
+                  <td>11:15 - 11:50</td> <td>x</td><td>Guarani</td><td>Almuerzo</td> <td>Almuerzo</td><td>Almuerzo</td>
+                </tr>
+                <tr>
+                  <td>11:50 - 12:25</td><td>x</td><td>Guarani</td><td>Almuerzo</td><td>Almuerzo</td><td>Almuerzo</td>
+                </tr>
+                <tr>
+                  <td>12:25 - 13:00</td><td>x</td><td>Almuerzo</td><td>Almuerzo</td><td>Almuerzo</td><td>x</td>
+                </tr>  
+                <tr>
+                <td>13:00 - 13:30</td><td>x</td><td>x</td><td>Desarrollo</td><td>Laboratorio</td><td>Matematica Aplicada</td>
+                </tr>    
+                <tr>
+                <td>13:30 - 14:00</td><td>x</td><td>x</td> <td>Desarrollo</td><td>Laboratorio</td><td>Matematica Aplicada</td>
+                </tr> 
+                <tr>  
+                <td>14:00 - 14:30</td><td>x</td> <td>x</td> <td>Desarrollo</td><td>Laboratorio</td><td>Matematica Aplicada</td>
+                </tr>
+                <tr>   
+                <td>14:30 - 15:00</td><td>x</td><td>x</td><td>Desarrollo</td><td>Laboratorio</td><td>Matematica Aplicada</td>
+                </tr> 
+                <tr>   
+                <td>15:20 - 15:50</td><td>x</td><td>x</td><td>x</td><td>Laboratorio</td> <td>Administracion Financiera</td>
+                </tr>   
+                <tr>
+                <td>15:50 - 16:20</td><td>x</td><td>x</td><td>x</td><td>Laboratorio</td><td>Administracion Financiera</td>
+                </tr>   
+                <tr>
+                <td>16:20 - 16:50</td><td>x</td><td>x</td><td>x</td><td>x</td><td>Administracion Financiera</td>
+                </tr>                     
+              </tbody>
+            </table>
+          </div>
+
+          <div id="batamSchedule" class="mi-tabla" style="display: none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7:00 - 7:40</td> <td>Orientacion</td><td>Literatura</td> <td>Matematica</td><td>Psicologia</td><td>Historia y Geografia</td>
+                </tr>
+                <tr>
+                  <td>7:40 - 8:20</td> <td>Orientacion</td> <td>Literatura</td> <td>Matematica</td> <td>Psicologia</td> <td>Historia y Geografia</td>
+                </tr>
+                <tr>
+                  <td>8:40 - 9:15</td> <td>Ciencias Naturales</td> <td>Metodologia</td> <td>Metodologia</td> <td>Administracion</td> <td>Ingles</td>
+                </tr>
+                <tr>
+                  <td>9:15 - 9:50</td> <td>Ciencias Naturales</td> <td>Metodologia</td> <td>Metodologia</ td> <td>Administracion</td> <td>Ingles</td>                      
+                </tr>
+                <tr>
+                  <td>9:50 - 10:25</td> <td>Economia</td> <td>Literatura</td> <td>Matematica</td> <td>Administracion</td> <td>Educacion Fisica</td>
+                </tr>
+                <tr>
+                  <td>10:25 - 11:00</td> <td>Economia</td> <td>Literatura</td> <td>Matemática</td> <td>Administracion</td> <td>Educacion Fisica</td>
+                </tr>
+                <tr>
+                  <td>11:15 - 11:50</td> <td>Informatica</td> <td>Guarani</td><td>Almuerzo</td> <td>Mercadotecnia</td> <td>Almuerzo</td>
+                </tr>
+                <tr>
+                  <td>11:50 - 12:25</td> <td>Informatica</td> <td>Guarani</td> <td>Almuerzo</td> <td>Mercadotecnia</td> <td>Almuerzo</td>
+                </tr>
+                <tr>
+                  <td>12:25 - 13:00</td> <td>x</td> <td>x</td> <td>Almuerzo</td> <td>x</td> <td>Almuerzo</td>
+                </tr>   
+                <tr>
+                <td>13:00 - 13:30</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>Economia</td>
+                </tr> 
+                <tr>
+                <td>13:30 - 14:00</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>Economia</td>
+                </tr>    
+                <tr>
+                <td>14:00 - 14:30</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>Proyecto</td>
+                </tr>    
+                <tr>
+                <td>14:30 - 15:00</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>Proyecto</td>
+                </tr>   
+                <tr>
+                <td>15:20 - 15:50</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>Proyecto</td>
+                </tr>   
+                <tr>
+                <td>15:50 - 16:20</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>x</td>
+                </tr>   
+                <tr>
+                <td>16:20 - 16:50</td> <td>x</td> <td>x</td> <td>Contabilidad</td> <td>x</td> <td>x</td>
+                </tr>   
+              </tbody>
+            </table>
+          </div>
+
+          <div id="saludSchedule" class="mi-tabla" style="display: none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th> <th>Lunes</th> <th>Martes</th> <th>Miércoles</th> <th>Jueves</th> <th>Viernes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7:00 - 7:40</td> <td>Orientacion</td><td>Literatura</td> <td>Matematica</td><td>Psicologia</td><td>Historia y Geografia</td>
+                </tr>
+                <tr>
+                  <td>7:40 - 8:20</td> <td>Orientacion</td> <td>Literatura</td> <td>Matematica</td> <td>Psicologia</td> <td>Historia y Geografia</td>
+                </tr>
+                <tr>
+                  <td>8:40 - 9:15</td> <td>Ciencias Naturales </td> <td>Metodologia</td> <td>Metodologia</td> <td>Practica Com</td> <td>Ingles</td>
+                </tr>
+                <tr>
+                  <td>9:15 - 9:50</td> <td>Ciencias Naturales</td> <td>Metodologia</td> <td>Metodologia</td> <td>Practica Com</td> <td>Ingles</td>                      
+                </tr>
+                <tr>
+                  <td>9:50 - 10:25</td> <td>Economia</td> <td>Literatura</td> <td>Matematica</td> <td>Practica Com</td> <td>Educacion Fisica</td>
+                </tr>
+                <tr>
+                  <td>10:25 - 11:00</td> <td>Economia</td> <td>Literatura</td> <td>Matemática</td> <td>Practica Com</td> <td>Educacion Fisica</td>
+                </tr>
+                <tr>
+                  <td>11:15 - 11:50</td> <td>Informatica</td> <td>Guarani</td><td>Almuerzo</td> <td>Practica Com</td> <td>Almuerzo</td>
+                </tr>
+                <tr>
+                  <td>11:50 - 12:25</td> <td>Informatica</td> <td>Guarani</td> <td>Almuerzo</td> <td>Practica Com</td> <td>Almuerzo</td>
+                </tr>
+                <tr>
+                  <td>12:25 - 13:00</td> <td>Almuerzo</td> <td>Almuerzo</td> <td>Almuerzo</td> <td>x</td> <td>Almuerzo</td>
+                </tr>   
+                <tr>
+                <td>13:00 - 13:30</td> <td>Atencion Basica</td> <td>Salud Publica</td> <td>Educ.Salud</td> <td>x</td> <td>Patologia</td>
+                </tr> 
+                <tr>
+                <td>13:30 - 14:00</td> <td>Atencion Basica</td> <td>Salud Publica</td> <td>Educ.Salud</td> <td>x</td> <td>Patologia</td>
+                </tr>    
+                <tr>
+                <td>14:00 - 14:30</td> <td>Atencion Basica</td> <td>Salud Publica</td> <td>Educ.Salud</td> <td>x</td> <td>Patologia</td>
+                </tr>    
+                <tr>
+                <td>14:30 - 15:00</td> <td>Atencion Basica</td> <td>Salud Publica</td> <td>Educ.Salud</td> <td>x</td> <td>Patologia</td>
+                </tr>   
+                <tr>
+                <td>15:20 - 15:50</td> <td>x</td> <td>Salud Publica</td> <td>Nutricion</td> <td>x</td> <td>Patologia</td>
+                </tr>   
+                <tr>
+                <td>15:50 - 16:20</td> <td>x</td> <td>x</td> <td>Nutricion</td> <td>x</td> <td>x</td>
+                </tr>   
+                <tr>
+                <td>16:20 - 16:50</td> <td>x</td> <td>x</td> <td>Nutricion</td> <td>x</td> <td>x</td>
+                </tr>   
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Botón para volver al menú -->
+          <button class="btn" id="backToMenuBtnSchedule">Volver al Menú</button>
+        </section>
+
+        <!-- Sección de vista de calendario -->
+        <section class="calendar-overview" style="display:none;">
+          <header>
+            <h1>Calendario</h1>
+          </header>
+          <div id="calendarContent">
+            <p><strong>Fecha:</strong> <span id="currentDate"></span></p>
+            <p><strong>Hora:</strong> <span id="currentTime"></span></p>
+            <p><strong>Día:</strong> <span id="currentDay"></span></p>
+          </div>
+          <button class="btn" id="viewImportantDatesBtn">Ver Fechas Importantes</button>
+          <button class="btn" id="addImportantDateBtn">Añadir Fecha Importante</button>
+          <button class="btn" id="backToMenuBtnCalendar">Volver al Menú</button>
+        
+          <div id="importantDatesModal" class="modal">
+            <div class="modal-content">
+              <h2>Fechas Importantes</h2>
+              <div id="importantDatesList"></div>
+              <br><br>
+              <button class="btn" id="closeImportantDatesBtn">Cerrar</button>
+            </div>
+          </div>
+        
+          <div id="addDateModal" class="modal">
+            <div class="modal-content">
+              <h2>Añadir Fecha Importante</h2>
+              <form id="addDateForm">
+                <label for="newDate">Fecha:</label>
+                <input type="date" id="newDate" required>
+                <label for="newEvent">Descripción:</label>
+                <input type="text" id="newEvent" required>
+                <button type="submit" class="btn">Guardar</button>
+                <button type="button" class="btn" id="cancelAddDateBtn">Cancelar</button>
+              </form>
+            </div>
+          </div>
+        
+          <div id="editDateModal" class="modal">
+            <div class="modal-content">
+              <h2>Editar Fecha Importante</h2>
+              <form id="editDateForm">
+                <label for="editDate">Fecha:</label>
+                <input type="date" id="editDate" required>
+                <label for="editEvent">Descripción:</label>
+                <input type="text" id="editEvent" required>
+                <button type="submit" class="btn">Guardar Cambios</button>
+                <button type="button" class="btn" id="cancelEditDateBtn">Cancelar</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección de vista de perfil -->
+        <section class="profile-overview" style="display:none;">
+          <header><h1>Perfil:</h1></header>
+          <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+          <p><strong>Apellido:</strong> <span id="apellido"></span></p>
+          <p><strong>Edad:</strong> <span id="edad"></span></p>
+          <p><strong>Rol:</strong> <span id="rol"></span></p>
+          <p><strong>Especialidad:</strong> <span id="especialidad"></span></p>
+          <!-- Botón para volver al menú -->
+          <button class="btn" id="backToMenuBtnProfile">Volver al Menú</button>
+          <button  class="btn" onclick="location.href='login.html'">Cambiar de Perfil</button>
+        </section>
+
+        <!-- Sección de vista de Bloc de Notas -->
+        <section class="bloc-notas-overview" style="display:none;">
+          <header>
+            <h1>Bloc de Notas</h1>
+            <button class="btn" id="addNoteBtn">Añadir Nota</button>
+            <button class="btn" id="backToMenuBtnBlocNotas">Volver al Menú</button>
+          </header>
+
+            <!-- Modal para añadir nota -->
+            <div id="addNoteModal" class="dialog">
+              <form id="addNoteForm">
+                <h3>Añadir Nueva Nota</h3>
+                <label for="noteTitle">Título:</label>
+                <input type="text" id="noteTitle" name="noteTitle" required>
+                <label for="noteContent">Descripción:</label>
+                <textarea id="noteContent" name="noteContent" required></textarea>
+                <label for="noteDate">Fecha:</label>
+                <input type="date" id="noteDate" name="noteDate" required>
+                <button class="btn" type="submit">Agregar Nota</button>
+                <button class="btn" type="button" id="cancelAddNoteBtn">Cancelar</button>
+              </form>
+            </div>
+
+            <!-- Modal para confirmar eliminación -->
+            <div id="deleteNoteModal" class="dialog">
+              <p>¿Estás seguro de que quieres eliminar esta nota?</p>
+              <button class="btn" id="confirmDeleteNoteBtn">Sí</button>
+              <button class="btn" id="cancelDeleteNoteBtn">No</button>
+            </div>
+
+            <!-- Contenedor para las notas -->
+            <h3>Mis Notas</h3>
+            <ul id="notesList" class="bloc-list"></ul>
+          </div>
+        </section>
+
+        <!-- Sección de notas -->
+        <section class="notas-overview" style="display:none;">
+          <header>
+            <h1>Hoja de Calificaciones</h1>
+          </header>
+          <main>
+            <table class="tablee">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nom</th>
+                  <th>Curso</th>
+                  <th>Area</th>
+                  <th>lim1</th>
+                  <th>Parc1</th>
+                  <th>Res1</th>
+                  <th>lim2</th>
+                  <th>Parc2</th>
+                  <th>Res2</th>
+                  <th>Final</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody id="gradeTable">
+                <!-- Filas de estudiantes se generarán dinámicamente -->
+              </tbody>
+            </table>
+
+            
+            <button class="btn" onclick="openAddStudentModal()">Agregar Nuevo Alumno</button>
+          </main>
+          <!-- Modal para agregar nuevo estudiante -->
+          <div id="addStudentModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeAddStudentModal()">&times;</span>
+              <h3>Agregar Nuevo Estudiante</h3>
+              <label for="newStudentName">Nombre del Estudiante:</label>
+              <input type="text" id="newStudentName">
+              <br><br>
+              <label for="newStudentLimit1">Límite Parcial 1:</label>
+              <input type="number" id="newStudentLimit1" min="1" max="100" value="">
+              <br><br>
+              <label for="newStudentPartial1">Conseguido Parcial 1:</label>
+              <input type="number" id="newStudentPartial1" min="1" max="100" value="">
+              <br><br>
+              <label for="newStudentLimit2">Límite Parcial 2:</label>
+              <input type="number" id="newStudentLimit2" min="1" max="100" value="">
+              <br><br>
+              <label for="newStudentPartial2">Conseguido Parcial 2:</label>
+              <input type="number" id="newStudentPartial2" min="1" max="100" value="">
+              <br><br>
+              <label for="newStudentCourse">Curso:</label>
+              <select id="newStudentCourse">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <br><br>
+              <label for="newStudentSpecialty">Especialidad:</label>
+              <select id="newStudentSpecialty">
+                <option value="BTI">BTI</option>
+                <option value="BATAM">BATAM</option>
+                <option value="SALUD">SALUD</option>
+              </select>
+              <br><br>
+              <button class="save-button" onclick="addStudent()">Agregar Estudiante</button>
+            </div>
+          </div>
+
+          <!-- Modal de confirmación para eliminar estudiante -->
+          <div id="confirmDeleteModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeConfirmDeleteModal()">&times;</span>
+              <h3>Confirmación</h3>
+              <p>¿Está seguro de que desea eliminar este estudiante?</p>
+              <button class="delete-button" id="confirmDeleteButton" onclick="deleteStudent()">Eliminar</button>
+              <button class="save-button" onclick="closeConfirmDeleteModal()">Cancelar</button>
+            </div>
+          </div>
+
+          <!-- Modal para editar los parciales, límites, nombre, curso y especialidad -->
+        <div id="editPartialModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeEditPartialModal()">&times;</span>
+            <h3>Editar Información del Estudiante</h3>
+            <label for="editStudentName">Nombre del Estudiante:</label>
+            <input type="text" id="editStudentName" value="">
+            <br><br>
+            <label for="editStudentCourse">Curso:</label>
+            <select id="editStudentCourse">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <br><br>
+            <label for="editStudentSpecialty">Especialidad:</label>
+            <select id="editStudentSpecialty">
+              <option value="BTI">BTI</option>
+              <option value="BATAM">BATAM</option>
+              <option value="SALUD">SALUD</option>
+            </select>
+            <br><br>
+            <label for="editLimit1">Límite Parcial 1:</label>
+            <input type="number" id="editLimit1" min="1" max="100" value="">
+            <br><br>
+            <label for="editPartial1">Conseguido Parcial 1:</label>
+            <input type="number" id="editPartial1" min="1" max="100" value="">
+            <br><br>
+            <label for="editLimit2">Límite Parcial 2:</label>
+            <input type="number" id="editLimit2" min="1" max="100" value="">
+            <br><br>
+            <label for="editPartial2">Conseguido Parcial 2:</label>
+            <input type="number" id="editPartial2" min="1" max="100" value="">
+            <br><br>
+            <button class="save-button" id="savePartialButton">Guardar Cambios</button>
+          </div>
+        </div>
+        </section>
+
+      </main>
+    
+<!--CERRAR LOS MODALES QUE POSEEN X (ACLARO SOLAMENTE X, SI TIENEN UN BOTON CANCELAR NO FUNCIONARA)-->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  // Cerrar el modal del menú
+  const modalMenu = document.getElementById("myModal");
+  const closeMenuModal = modalMenu.querySelector('.close');
+  closeMenuModal.onclick = function() {
+    modalMenu.style.display = "none";
+  };
+
+  // Cerrar el modal de confirmación de tarea
+  const confirmModal = document.getElementById('confirmModal');
+  const closeConfirmModal = confirmModal.querySelector('.close');
+  closeConfirmModal.onclick = function() {
+    confirmModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de confirmación de eliminación de nota
+  const deleteNoteModal = document.getElementById('deleteNoteModal');
+  const closeDeleteNoteModal = deleteNoteModal.querySelector('.close');
+  closeDeleteNoteModal.onclick = function() {
+    deleteNoteModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de confirmación de eliminación de estudiante
+  const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+  const closeConfirmDeleteModal = confirmDeleteModal.querySelector('.close');
+  closeConfirmDeleteModal.onclick = function() {
+    confirmDeleteModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de edición de fecha importante
+  const editDateModal = document.getElementById('editDateModal');
+  const closeEditDateModal = editDateModal.querySelector('.close');
+  closeEditDateModal.onclick = function() {
+    editDateModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de añadir fecha
+  const addDateModal = document.getElementById('addDateModal');
+  const closeAddDateModal = addDateModal.querySelector('.close');
+  closeAddDateModal.onclick = function() {
+    addDateModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de edición de clase
+  const editClassModal = document.getElementById('editClassModal');
+  const closeEditClassModal = editClassModal.querySelector('.close');
+  closeEditClassModal.onclick = function() {
+    editClassModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de añadir nota
+  const addNoteModal = document.getElementById('addNoteModal');
+  const closeAddNoteModal = addNoteModal.querySelector('.close');
+  closeAddNoteModal.onclick = function() {
+    addNoteModal.style.display = 'none';
+  };
+
+  // Cerrar el modal de edición de tarea
+  const editModal = document.getElementById('editModal');
+  const closeEditModal = editModal.querySelector('.close');
+  closeEditModal.onclick = function() {
+    editModal.style.display = 'none';
+  };
+
+});
+</script>
+
+<!--  N A V E G A C I O N-->
+<script id="NAVEGACION">
+// Obtener los elementos del DOM
+const mainContent = document.getElementById('mainContent');
+const classOverview = document.querySelector('.class-overview');
+const scheduleOverview = document.querySelector('.schedule-overview');
+const profileOverview = document.querySelector('.profile-overview');
+const blocNotasOverview = document.querySelector('.bloc-notas-overview');
+const creacionTareasSection = document.getElementById('creacionTareasSection');
+
+// Obtener los botones del menú
+const navInicioBtn = document.getElementById('navInicio');
+const navClasesBtn = document.getElementById('navClases');
+const navCreacionTareasBtn = document.getElementById('navCreacionTareas');
+const navHorarioBtn = document.getElementById('navHorario');
+const navPerfilBtn = document.getElementById('navPerfil');
+const navBlocNotasBtn = document.getElementById('navBlocNotas');
+
+// Agregar eventos de clic a los botones del menú
+navInicioBtn.addEventListener('click', () => {
+  // Realizar la acción correspondiente al botón de inicio
+  showSection(mainContent.querySelector('.menu-overview'));
+});
+
+navClasesBtn.addEventListener('click', () => {
+  // Realizar la acción correspondiente al botón de clases
+  showSection(classOverview);
+});
+
+navCreacionTareasBtn.addEventListener('click', () => {
+  // Realizar la acción correspondiente al botón de creación de tareas
+  showSection(creacionTareasSection);
+});
+
+navHorarioBtn.addEventListener('click', () => {
+  // Realizar la acción correspondiente al botón de horario
+  showSection(scheduleOverview);
+});
+
+navPerfilBtn.addEventListener('click', () => {
+  // Realizar la acción correspondiente al botón de perfil
+  showSection(profileOverview);
+});
+
+navBlocNotasBtn.addEventListener('click', () => {
+  // Realizar la acción correspondiente al botón de bloc de notas
+  showSection(blocNotasOverview);
+});
+
+document.getElementById('navNotas').addEventListener('click', () => {
+      showSection(document.querySelector('.notas-overview'));
+});
+
+document.getElementById('navListaTareas').addEventListener('click', () => {
+  showSection(document.querySelector('.lista-tareas-overview'));
+  modal.style.display = "none";
+});
+
+// Función para mostrar la sección correspondiente y ocultar las demás
+function showSection(section) {
+  mainContent.querySelectorAll('section').forEach(s => s.style.display = 'none');
+  section.style.display = 'block';
+}
+
+//Modal de menu
+// Obtener el modal
+var modal = document.getElementById("myModal");
+
+// Obtener el botón que abre el modal
+var btn = document.getElementById("openModalBtn");
+
+// Obtener el elemento <span> que cierra el modal
+var span = document.getElementsByClassName("close")[0];
+
+// Cuando el usuario hace clic en el botón, abre el modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// Cuando el usuario hace clic en <span> (x), cierra el modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Cuando el usuario hace clic en cualquier lugar fuera del modal, cierra el modal
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Agregar eventos a los botones del modal para cambiar de secciones
+document.getElementById('navInicio').addEventListener('click', () => {
+  showSection(document.querySelector('.menu-overview'));
+  modal.style.display = "none";
+});
+
+document.getElementById('navClases').addEventListener('click', () => {
+  showSection(document.querySelector('.class-overview'));
+  modal.style.display = "none";
+});
+
+document.getElementById('navCreacionTareas').addEventListener('click', () => {
+  showSection(document.querySelector('#creacionTareasSection'));
+  modal.style.display = "none";
+});
+
+document.getElementById('navHorario').addEventListener('click', () => {
+  showSection(document.querySelector('.schedule-overview'));
+  modal.style.display = "none";
+});
+
+document.getElementById('navPerfil').addEventListener('click', () => {
+  showSection(document.querySelector('.profile-overview'));
+  modal.style.display = "none";
+});
+
+document.getElementById('navBlocNotas').addEventListener('click', () => {
+  showSection(document.querySelector('.bloc-notas-overview'));
+  modal.style.display = "none";
+});
+
+document.getElementById('navNotas').addEventListener('click', () => {
+  showSection(document.querySelector('.notas-overview'));
+  modal.style.display = "none";
+});
+
+document.getElementById('viewListaTareas').addEventListener('click', () => {
+  showSection(document.querySelector('.lista-tareas-overview'));
+});
+
+function showSection(section) {
+  document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+  section.style.display = 'block';
+}
+
+// Asignar eventos de clic a los botones de volver al menú
+const backToMenuBtns = document.querySelectorAll('.btn[id^="backToMenuBtn"]');
+backToMenuBtns.forEach(btn => btn.addEventListener('click', () => showSection(mainContent.querySelector('.menu-overview'))));
+
+// Asignar eventos de clic a los elementos del menú principal
+document.getElementById('viewClasses').addEventListener('click', () => showSection(classOverview));
+document.getElementById('viewCrearTareas').addEventListener('click', () => showSection(creacionTareasSection));
+document.getElementById('viewSchedule').addEventListener('click', () => showSection(scheduleOverview));
+document.getElementById('viewProfile').addEventListener('click', () => showSection(profileOverview));
+document.getElementById('viewBlocNotas').addEventListener('click', () => showSection(blocNotasOverview));
+document.getElementById('viewNotas').addEventListener('click', () => {showSection(document.querySelector('.notas-overview'));
+});
+</script>
+
+<!-- A G R E G A R  N U E V A  C L A S E-->
+<script id="AGREGAR NUEVA CLASE">
+document.addEventListener('DOMContentLoaded', function() {
+  const addNewClassBtn = document.getElementById('addNewClassBtn');
+  const addNewClassModal = document.getElementById('addNewClassModal');
+  const newClassForm = document.getElementById('newClassForm');
+  const cancelAddNewClassBtn = document.getElementById('cancelAddNewClassBtn');
+  const classList = document.querySelector('.class-list');
+  let classes = JSON.parse(localStorage.getItem('classes')) || [];
+
+  addNewClassBtn.addEventListener('click', () => {
+    addNewClassModal.style.display = 'block';
+  });
+
+  cancelAddNewClassBtn.addEventListener('click', () => {
+    addNewClassModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target === addNewClassModal) {
+      addNewClassModal.style.display = 'none';
+    }
+  });
+
+  newClassForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const title = newClassForm.newClassTitle.value;
+    const instructor = newClassForm.newClassInstructor.value;
+    const materia = newClassForm.newClassMateria.value;
+    const curso = newClassForm.newClassCurso.value;
+    const descripcion = newClassForm.newClassDescripcion.value;
+    const classData = { id: Date.now(), title, instructor, materia, curso, descripcion };
+    classes.push(classData);
+    localStorage.setItem('classes', JSON.stringify(classes));
+    addClassToDOM(classData);
+    newClassForm.reset();
+    addNewClassModal.style.display = 'none';
+  });
+
+  classes.forEach(classData => addClassToDOM(classData));
+
+  function addClassToDOM({ id , title, instructor, materia, curso, descripcion }) {
+    const newClassCard = document.createElement('div');
+    newClassCard.classList.add('class-card');
+    newClassCard.dataset.id = id;
+    newClassCard.innerHTML = `
+      <h3>${title}</h3>
+      <p>Instructor: ${instructor}</p>
+      <p>Materia: ${materia}</p>
+      <p>Curso: ${curso}</p>
+      <p>Descripción: ${descripcion}</p>
+      <button class="btn delete-class-btn">Eliminar clase</button>
+      <button class="btn edit-class-btn">Editar clase</button>
+    `;
+
+    classList.appendChild(newClassCard);
+
+    const enterClassBtn = newClassCard.querySelector('.enter-class-btn');
+    const deleteClassBtn = newClassCard.querySelector('.delete-class-btn');
+    const editClassBtn = newClassCard.querySelector('.edit-class-btn');
+
+    enterClassBtn.addEventListener('click', () => {
+      console.log(`Entrando a la clase ${title}`);
+    });
+
+    deleteClassBtn.addEventListener('click', () => {
+      const confirmDeleteModal = document.createElement('div');
+      confirmDeleteModal.classList.add('dialog');
+      confirmDeleteModal.innerHTML = `
+        <p>¿Quieres eliminar esta clase?</p>
+        <button class="btn yes-btn">Sí</button>
+        <button class="btn no-btn">No</button>
+      `;
+      document.body.appendChild(confirmDeleteModal);
+      confirmDeleteModal.style.display = 'block';
+
+      const yesBtn = confirmDeleteModal.querySelector('.yes-btn');
+      const noBtn = confirmDeleteModal.querySelector('.no-btn');
+
+      yesBtn.addEventListener('click', () => {
+        classes = classes.filter(classData => classData.id !== id);
+        localStorage.setItem('classes', JSON.stringify(classes));
+        newClassCard.remove();
+        confirmDeleteModal.remove();
+      });
+
+      noBtn.addEventListener('click', () => {
+        confirmDeleteModal.remove();
+      });
+    });
+
+    editClassBtn.addEventListener('click', () => {
+      currentClassId = id;
+      const classData = classes.find(classData => classData.id === id);
+      document.getElementById('editClassTitle').value = classData.title;
+      document.getElementById('editClassInstructor').value = classData.instructor;
+      document.getElementById('editClassMateria').value = classData.materia;
+      document.getElementById('editClassCurso').value = classData.curso;
+      document.getElementById('editClassDescripcion').value = classData.descripcion;
+      editClassModal.style.display = 'block';
+    });
+  }
+
+  cancelEditClassBtn.addEventListener('click', () => {
+    editClassModal.style.display = 'none';
+  });
+
+  editClassForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const newTitle = document.getElementById('editClassTitle').value;
+    const newInstructor = document.getElementById('editClassInstructor').value;
+    const newMateria = document.getElementById('editClassMateria').value;
+    const newCurso = document.getElementById('editClassCurso').value;
+    const newDescripcion = document.getElementById('editClassDescripcion').value;
+    classes = classes.map(classData => {
+      if (classData.id === currentClassId) {
+        return { id: currentClassId, title: newTitle, instructor: newInstructor, materia: newMateria, curso: newCurso, descripcion: newDescripcion };
+      }
+      return classData;
+    });
+    localStorage.setItem('classes', JSON.stringify(classes));
+    const classCard = document.querySelector(`.class-card[data-id="${currentClassId}"]`);
+    classCard.querySelector('h3').textContent = newTitle;
+    classCard.querySelector('p:nth-child(2)').textContent = `Instructor: ${newInstructor}`;
+    classCard.querySelector('p:nth-child(3)').textContent = `Materia: ${newMateria}`;
+    classCard.querySelector('p:nth-child(4)').textContent = `Curso: ${newCurso}`;
+    classCard.querySelector('p:nth-child(5)').textContent = `Descripción: ${newDescripcion}`;
+    editClassModal.style.display = 'none';
+  });
+});
+</script>
+
+<!-- L I S T A  D E  T A R E A S-->
+<script id="LISTA DE TAREAS">
+  document.addEventListener('DOMContentLoaded', function() {
+  const taskList = document.getElementById('taskList');
+  let selectedTaskId = null; // Para almacenar la tarea seleccionada para eliminar o editar
+
+  // Modal para eliminación
+  const deleteModal = document.getElementById('deleteModal');
+  const confirmDeleteBtn = document.getElementById('confirmDelete');
+  const cancelDeleteBtn = document.getElementById('cancelDelete');
+  const closeDeleteModal = document.querySelector('.close');
+
+  // Modal para edición
+  const editModal = document.getElementById('editModal');
+  const saveEditButton = document.getElementById('saveEditButton');
+  const closeEditModal = document.querySelectorAll('.close')[1];
+
+  // Cargar las tareas normales
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  tasks.forEach(task => displayTask(task, false));
+
+  // Cargar las tareas de documentos
+  let documentos = JSON.parse(localStorage.getItem('documentos')) || [];
+  documentos.forEach(documento => displayTask(documento, true));
+
+  // Mostrar las tareas
+  function displayTask(task, isDocument) {
+    const taskItem = document.createElement('div');
+    taskItem.classList.add('task-item');
+    taskItem.innerHTML = `
+      <h3>${task.name}</h3>
+      <p>${task.description}</p>
+      <p><strong>Fecha Límite:</strong> ${new Date(task.dueDate).toLocaleDateString()}</p>
+      ${isDocument ? `<p><a href="${task.fileUrl}" download="${task.fileName}">Descargar ${task.fileName}</a></p>` : ''}
+      <button class="btn" onclick="openEditModal('${task.id}', ${isDocument})">Editar</button>
+      <button class="btn" onclick="openDeleteModal('${task.id}', ${isDocument})">Eliminar</button>
+    `;
+    taskList.appendChild(taskItem);
+  }
+
+  // Abrir modal de confirmación de eliminación
+  window.openDeleteModal = function(taskId, isDocument) {
+    selectedTaskId = { taskId, isDocument };
+    deleteModal.style .display = 'flex';
+  };
+
+  // Confirmar eliminación de tarea
+  confirmDeleteBtn.addEventListener('click', function() {
+    if (selectedTaskId) {
+      if (selectedTaskId.isDocument) {
+        documentos = documentos.filter(doc => doc.id !== selectedTaskId.taskId);
+        localStorage.setItem('documentos', JSON.stringify(documentos));
+      } else {
+        tasks = tasks.filter(task => task.id !== selectedTaskId.taskId);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+      }
+      location.reload(); // Recargar la página para reflejar los cambios
+    }
+  });
+
+  // Cancelar eliminación de tarea
+  cancelDeleteBtn.addEventListener('click', function() {
+    deleteModal.style.display = 'none';
+  });
+
+  // Cerrar el modal de eliminación
+  closeDeleteModal.addEventListener('click', function() {
+    deleteModal.style.display = 'none';
+  });
+
+  // Abrir modal de edición de tarea
+  window.openEditModal = function(taskId, isDocument) {
+    selectedTaskId = { taskId, isDocument };
+    let taskToEdit;
+
+    if (isDocument) {
+      taskToEdit = documentos.find(doc => doc.id === taskId);
+    } else {
+      taskToEdit = tasks.find(task => task.id === taskId);
+    }
+
+    if (taskToEdit) {
+      document.getElementById('editTaskName').value = taskToEdit.name;
+      document.getElementById('editTaskDescription').value = taskToEdit.description;
+      document.getElementById('editTaskDueDate').value = taskToEdit.dueDate;
+      editModal.style.display = 'flex';
+    }
+  };
+
+  // Guardar cambios en la tarea editada
+  saveEditButton.addEventListener('click', function() {
+    const editedTaskName = document.getElementById('editTaskName').value;
+    const editedTaskDescription = document.getElementById('editTaskDescription').value;
+    const editedTaskDueDate = document.getElementById('editTaskDueDate').value;
+    const editedFile = document.getElementById('editTaskFile').files[0];
+
+    if (selectedTaskId.isDocument) {
+      let taskToEdit = documentos.find(doc => doc.id === selectedTaskId.taskId);
+      taskToEdit.name = editedTaskName;
+      taskToEdit.description = editedTaskDescription;
+      taskToEdit.dueDate = editedTaskDueDate;
+
+      // Si el usuario selecciona un nuevo archivo, reemplazar el archivo anterior
+      if (editedFile) {
+        taskToEdit.fileName = editedFile.name;
+        taskToEdit.fileUrl = URL.createObjectURL(editedFile);
+      }
+
+      // Guardar los cambios en `localStorage`
+      localStorage.setItem('documentos', JSON.stringify(documentos));
+    } else {
+      let taskToEdit = tasks.find(task => task.id === selectedTaskId.taskId);
+      taskToEdit.name = editedTaskName;
+      taskToEdit.description = editedTaskDescription;
+      taskToEdit.dueDate = editedTaskDueDate;
+
+      // Guardar los cambios en `localStorage`
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Cerrar el modal y recargar la página para reflejar los cambios
+    editModal.style.display = 'none';
+    location.reload();
+  });
+
+  // Cerrar el modal de edición
+  closeEditModal.addEventListener('click', function() {
+    editModal.style.display = 'none';
+  });
+
+  // Cerrar el modal de edición si el usuario hace clic fuera de él
+  window.onclick = function(event) {
+    if (event.target == deleteModal) {
+      deleteModal.style.display = 'none';
+    }
+    if (event.target == editModal) {
+      editModal.style.display = 'none';
+    }
+  };
+});
+</script>
+
+<!-- C R E A C I O N  D E  T A R E A S  P A R A  D O C E N T E S-->
+<script id="CREACION DE TAREAS PARA DOCENTES">
+document.addEventListener('DOMContentLoaded', function() {
+  const crearAvisoBtn = document.getElementById('crear-aviso-btn');
+  const avisoContainer = document.getElementById('aviso-container');
+  const crearAvisoDocumentoBtn = document.getElementById('crear-aviso-documento-btn');
+  const avisoDocumentoContainer = document.getElementById('aviso-documento-container');
+  const confirmModal = document.getElementById('confirmModal');
+
+  function clearContainers() {
+    avisoContainer.innerHTML = '';
+    avisoDocumentoContainer.innerHTML = '';
+  }
+
+  crearAvisoBtn.addEventListener('click', function() {
+    clearContainers();
+    const avisoHtml = `
+      <h1>Crear Aviso</h1>
+      <form id="taskForm">
+        <label for="taskName">Nombre de la Tarea</label>
+        <input type="text" id="taskName" name="taskName" required>
+
+        <label for="taskDescription">Descripción de la Tarea</label>
+        <textarea id="taskDescription" name="taskDescription" required></textarea>
+
+        <label for="taskDueDate">Fecha Límite de Entrega</label>
+        <input type="date" id="taskDueDate" name="taskDueDate" required>
+
+        <button type="submit" class="btn">Enviar</button>
+        <button type="button" class="btn" onclick="resetForm()">Cancelar</button>
+      </form>
+    `;
+
+    avisoContainer.innerHTML = avisoHtml;
+
+    // Agrega el evento de submit al formulario
+    const taskForm = document.getElementById('taskForm');
+    taskForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const taskName = document.getElementById('taskName').value;
+      const taskDescription = document.getElementById('taskDescription').value;
+      const taskDueDate = document.getElementById('taskDueDate').value;
+
+      const task = {
+        id: Date.now().toString(),
+        type: 'aviso',
+        name: taskName,
+        description: taskDescription,
+        dueDate: taskDueDate
+      };
+
+      let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      tasks.push(task);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+
+      // Mostrar el modal de confirmación
+      confirmModal.style.display = 'block';
+
+      // Cerrar el modal al hacer clic en la "X"
+      closeModal.onclick = function() {
+        confirmModal.style.display = 'none';
+      };
+
+      // Cerrar el modal automáticamente después de 2 segundos
+      setTimeout(function() {
+        confirmModal.style.display = 'none';
+      }, 2000);
+
+      // Redirige a la pantalla de inicio de la sección comenius
+      window.location.href = '#comenius-section';
+    });
+  });
+
+  crearAvisoDocumentoBtn.addEventListener('click', function() {
+ clearContainers();
+    const avisoDocumentoHtml = `
+      <h1>Crear Aviso de Documento</h1>
+      <form id="documentoForm">
+        <label for="documentoName">Nombre del Documento</label>
+        <input type="text" id="documentoName" name="documentoName" required>
+
+        <label for="documentoDescription">Descripción del Documento</label>
+        <textarea id="documentoDescription" name="documentoDescription" required></textarea>
+
+        <label for="taskDueDate">Fecha Límite de Entrega</label>
+        <input type="date" id="taskDueDate" name="taskDueDate" required>
+
+        <label for="documentoFile">Archivo del Documento</label>
+        <input type="file" id="documentoFile" name="documentoFile" required>
+        <br>
+        <button type="submit" class="btn">Enviar</button>
+        <button type="button" class="btn" onclick="resetForm()">Cancelar</button>
+      </form>
+    `;
+
+    avisoDocumentoContainer.innerHTML = avisoDocumentoHtml;
+
+    // Agrega el evento de submit al formulario
+    const documentoForm = document.getElementById('documentoForm');
+    documentoForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const documentoName = document.getElementById('documentoName').value;
+      const documentoDescription = document.getElementById('documentoDescription').value;
+      const taskDueDate = document.getElementById('taskDueDate').value;  // Capturando la fecha
+      const documentoFile = document.getElementById('documentoFile').files[0];
+
+      const documento = {
+        id: Date.now().toString(),
+        type: 'documento',
+        name: documentoName,
+        description: documentoDescription,
+        dueDate: taskDueDate,  // Guardando la fecha correctamente
+        fileName: documentoFile.name,
+        fileUrl: URL.createObjectURL(documentoFile)
+      };
+
+      let documentos = JSON.parse(localStorage.getItem('documentos')) || [];
+      documentos.push(documento);
+      localStorage.setItem('documentos', JSON.stringify(documentos));
+
+      // Mostrar el modal de confirmación
+      confirmModal.style.display = 'block';
+
+      // Cerrar el modal al hacer clic en la "X"
+      closeModal.onclick = function() {
+        confirmModal.style.display = 'none';
+      };
+
+      // Cerrar el modal automáticamente después de 2 segundos
+      setTimeout(function() {
+        confirmModal.style.display = 'none';
+      }, 2000);
+
+      // Redirige a la pantalla de inicio de la sección comenius
+      window.location.href = '#comenius-section';
+    });
+  });
+});
+</script>
+
+<!-- H O R A R I O S-->
+<script id="HORARIOS">
+
+  btnBti.addEventListener('click', () => {
+    btiSchedule.style.display = 'block';
+    batamSchedule.style.display = 'none';
+    saludSchedule.style.display = 'none';
+  });
+
+  btnBatam.addEventListener('click', () => {
+    btiSchedule.style.display = 'none';
+    batamSchedule.style.display = 'block';
+    saludSchedule.style.display = 'none';
+  });
+
+  btnSalud.addEventListener('click', () => {
+    btiSchedule.style.display = 'none';
+    batamSchedule.style.display = 'none';
+    saludSchedule.style.display = 'block';
+  });
+</script>
+
+<!-- V I S T A  D E  C A L E N D A R I O-->
+<script id="VISTA DE CALENDARIO">
+document.addEventListener('DOMContentLoaded', function() {
+  // Fechas importantes del usuario
+  let userImportantDates = JSON.parse(localStorage.getItem('userImportantDates')) || {};
+
+  // Elementos del DOM
+  const calendarOverview = document.querySelector('.calendar-overview');
+  const importantDatesModal = document.getElementById('importantDatesModal');
+  const closeImportantDatesBtn = document.getElementById('closeImportantDatesBtn');
+  const addDateModal = document.getElementById('addDateModal');
+  const editDateModal = document.getElementById('editDateModal');
+  const importantDatesList = document.getElementById('importantDatesList');
+
+  // Botones
+  const viewImportantDatesBtn = document.getElementById('viewImportantDatesBtn');
+  const addImportantDateBtn = document.getElementById('addImportantDateBtn');
+  const backToMenuBtnCalendar = document.getElementById('backToMenuBtnCalendar');
+
+  // Mostrar la sección de calendario
+  document.getElementById('navCalendar').addEventListener('click', () => {
+    showSection(calendarOverview);
+    updateCalendar();
+  });
+
+  document.getElementById('viewCalendar').addEventListener('click', () => {
+    showSection(calendarOverview);
+    updateCalendar();
+  });
+
+   // Mostrar fechas importantes
+   viewImportantDatesBtn.addEventListener('click', () => {
+    showImportantDates();
+    importantDatesModal.style.display = 'block';
+  });
+
+  // Cerrar modal de fechas importantes
+  closeImportantDatesBtn.addEventListener('click', () => {
+    importantDatesModal.style.display = 'none';
+  });
+
+  // También puedes añadir la opción de cerrar el modal haciendo clic fuera de él
+  window.addEventListener('click', (event) => {
+    if (event.target === importantDatesModal) {
+      importantDatesModal.style.display = 'none';
+    }
+  });
+
+
+  // Agregar nueva fecha
+  addImportantDateBtn.addEventListener('click', () => {
+    addDateModal.style.display = 'block';
+  });
+
+  // Guardar nueva fecha
+  document.getElementById('addDateForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const newDate = document.getElementById('newDate').value;
+    const newEvent = {
+      description: document.getElementById('newEvent').value,
+    };
+
+    if (newDate && newEvent.description) {
+      userImportantDates[newDate] = newEvent;
+      localStorage.setItem('userImportantDates', JSON.stringify(userImportantDates));
+      showImportantDates();
+      addDateModal.style.display = 'none';
+    }
+  });
+
+  // Editar fecha importante
+  importantDatesList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('edit-button')) {
+      const date = event.target.parentNode.parentNode.querySelector('h3').textContent;
+      const importantDate = userImportantDates[date];
+      document.getElementById('oldDate').value = date;
+      document.getElementById('editDate').value = date;
+      document.getElementById('editEvent').value = importantDate.description;
+      editDateModal.style.display = 'block';
+    }
+  });
+
+  // Guardar cambios en la fecha importante
+  document.getElementById('editDateForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const oldDate = document.getElementById('oldDate').value;
+    const newDate = document.getElementById('editDate').value;
+    const newEvent = {
+      description: document.getElementById('editEvent').value,
+    };
+
+    // Eliminar la fecha antigua si la fecha ha cambiado
+    if (oldDate !== newDate) {
+      delete userImportantDates[oldDate];
+    }
+
+    // Actualizar o agregar la nueva fecha
+    userImportantDates[newDate] = newEvent;
+    localStorage.setItem('userImportantDates', JSON.stringify(userImportantDates));
+    showImportantDates();
+    editDateModal.style.display = 'none';
+  });
+
+  // Eliminar fecha importante
+  importantDatesList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete-button')) {
+      const date = event.target.parentNode.parentNode.querySelector('h3').textContent;
+      delete userImportantDates[date];
+      localStorage.setItem('userImportantDates', JSON. stringify(userImportantDates));
+      showImportantDates();
+    }
+  });
+
+  // Mostrar fechas importantes
+  function showImportantDates() {
+  importantDatesList.innerHTML = '';
+  Object.entries(userImportantDates).forEach(([date, event]) => {
+    const listItem = document.createElement('div');
+    listItem.classList.add('important-date-item');
+    listItem.innerHTML = `
+      <div class="date-info">
+        <h3>${date}</h3>
+        <p>${event.description}</p>
+      </div>
+      <div class="date-actions">
+        <button class="btn edit-button">Editar</button>
+        <br><br>
+        <button class="btn delete-button">Eliminar</button>
+      </div>
+    `;
+    importantDatesList.appendChild(listItem);
+  });
+}
+
+  // Actualizar la fecha, hora y día
+  function updateCalendar() {
+    const now = new Date();
+
+    // Formatear la fecha
+    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('currentDate').textContent = now.toLocaleDateString('es-ES', dateOptions);
+
+    // Formatear la hora
+    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    document.getElementById('currentTime').textContent = now.toLocaleTimeString('es-ES', timeOptions);
+
+    // Obtener el día de la semana
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    document.getElementById('currentDay').textContent = days[now.getDay()];
+  }
+
+  // Llamar a updateCalendar inmediatamente para mostrar la información actual
+  updateCalendar();
+
+  // Actualizar cada segundo
+  setInterval(updateCalendar, 1000);
+
+  // Asignar evento de clic al botón de volver al menú
+  backToMenuBtnCalendar.addEventListener('click', () => {
+    showSection(document.querySelector('.menu-overview'));
+  });
+
+  // Función para mostrar la sección correspondiente y ocultar las demás
+  function showSection(section) {
+    document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+    section.style.display = 'block';
+  }
+
+  // Inicializar la visualización de fechas importantes
+  showImportantDates();
+});
+</script>
+
+<!-- V I S U A L I Z A R  E L  U S U A R I O -->
+<script id="VISUALIZAR EL USUARIO">
+  // Obtener los datos del usuario autenticado desde localStorage
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  if (currentUser) {
+    // Insertar los datos en los elementos correspondientes
+    document.getElementById('nombre').textContent = currentUser.name;
+    document.getElementById('apellido').textContent = currentUser.lastname;
+    document.getElementById('edad').textContent = currentUser.age;
+    document.getElementById('rol').textContent = currentUser.role;
+    document.getElementById('especialidad').textContent = currentUser.specialty;
+  } else {
+    // Si no hay usuario autenticado, redirigir al login
+    alert('No se ha iniciado sesión correctamente');
+    window.location.href = 'login.html';
+  }
+</script>
+
+<!-- M O D A L  P A R A  C R E A R  N O T A S  -->
+<script id="MODAL PARA CREAR NOTAS">
+  document.addEventListener('DOMContentLoaded', () => {
+    const addNoteBtn = document.getElementById('addNoteBtn');
+    const addNoteModal = document.getElementById('addNoteModal');
+    const deleteNoteModal = document.getElementById('deleteNoteModal');
+    const cancelAddNoteBtn = document.getElementById('cancelAddNoteBtn');
+    const cancelDeleteNoteBtn = document.getElementById('cancelDeleteNoteBtn');
+    const notesList = document.getElementById('notesList');
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+    // Mostrar modal para añadir nota
+    addNoteBtn.addEventListener('click', () => {
+      addNoteModal.style.display = 'block';
+    });
+
+    // Ocultar modal de añadir nota
+    cancelAddNoteBtn.addEventListener('click', () => {
+      addNoteModal.style.display = 'none';
+    });
+
+    // Guardar nota
+    document.getElementById('addNoteForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const title = document.getElementById('noteTitle').value;
+      const content = document.getElementById('noteContent').value;
+      const date = document.getElementById('noteDate').value;
+
+      const note = { id: Date.now(), title, content, date };
+      notes.push(note);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      displayNotes();
+      addNoteModal.style.display = 'none';
+    });
+
+    // Mostrar notas guardadas
+    function displayNotes() {
+      notesList.innerHTML = '';
+      notes.forEach(note => {
+        const noteItem = document.createElement('li');
+        noteItem.classList.add('note-item');
+        noteItem.innerHTML = `
+          <h4>${note.title}</h4>
+          <p>${note.content}</p>
+          <p><strong>Fecha:</strong> ${note.date}</p>
+          <button class="btn editNoteBtn">Editar</button>
+          <button class="btn deleteNoteBtn">Eliminar</button>
+        `;
+
+        // Editar nota
+        noteItem.querySelector('.editNoteBtn').addEventListener('click', () => {
+          document.getElementById('noteTitle').value = note.title;
+          document.getElementById('noteContent').value = note.content;
+          document.getElementById('noteDate').value = note.date;
+          addNoteModal.style.display = 'block';
+          notes = notes.filter(n => n.id !== note.id); // Elimina la nota actual para reemplazarla
+        });
+
+        // Eliminar nota
+        noteItem.querySelector('.deleteNoteBtn').addEventListener('click', () => {
+          deleteNoteModal.style.display = 'block';
+          noteToDelete = note.id;
+        });
+
+        notesList.appendChild(noteItem);
+      });
+    }
+
+    // Confirmar eliminación de nota
+    document.getElementById('confirmDeleteNoteBtn').addEventListener('click', () => {
+      notes = notes.filter(note => note.id !== noteToDelete);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      displayNotes();
+      deleteNoteModal.style.display = 'none';
+    });
+
+    // Cancelar eliminación de nota
+    cancelDeleteNoteBtn.addEventListener('click', () => {
+      deleteNoteModal.style.display = 'none';
+    });
+
+    displayNotes();
+  });
+</script>
+
+<!-- N O T A S -->
+<script id="NOTAS">
+let students = JSON.parse(localStorage.getItem('students')) || [];
+let studentToDelete = null;
+let studentToEditPartial = null;
+
+function calculateResult(limit, score) {
+  let percentage = (score / limit) * 100;
+  if (percentage >= 91) return 5;
+  if (percentage >= 81) return 4;
+  if (percentage >= 71) return 3;
+  if (percentage >= 61) return 2;
+  return 1;
+}
+
+function loadStudents() {
+  const gradeTable = document.getElementById('gradeTable');
+  gradeTable.innerHTML = '';
+  students.forEach((student, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${student.name}</td>
+      <td>${student.course}</td>
+      <td>${student.specialty}</td>
+      <td>${student.limit1}</td>
+      <td>${student.partial1}</td>
+      <td>${calculateResult(student.limit1, student.partial1)}</td>
+      <td>${student.limit2}</td>
+      <td>${student.partial2}</td>
+      <td>${calculateResult(student.limit2, student.partial2)}</td>
+      <td>${((calculateResult(student.limit1, student.partial1) + calculateResult(student.limit2, student.partial2)) / 2).toFixed(2)}</td>
+      <td>
+        <button class="edit-button" onclick="openEditPartialModal(${index})">Editar</button>
+        <br><br>
+        <button class="delete-button" onclick="openConfirmDeleteModal(${index})">Eliminar</button>
+      </td>
+    `;
+    gradeTable.appendChild(row);
+  });
+}
+
+function saveStudents() {
+  localStorage.setItem('students', JSON.stringify(students));
+}
+
+function addStudent() {
+  const name = document.getElementById('newStudentName').value;
+  const limit1 = parseInt(document.getElementById('newStudentLimit1').value);
+  const partial1 = parseInt(document.getElementById('newStudentPartial1').value);
+  const limit2 = parseInt(document.getElementById('newStudentLimit2').value);
+  const partial2 = parseInt(document.getElementById('newStudentPartial2').value);
+  const course = document.getElementById('newStudentCourse').value;
+  const specialty = document.getElementById('newStudentSpecialty').value;
+
+  if (name && !isNaN(limit1) && !isNaN(partial1) && !isNaN(limit2) && !isNaN(partial2)) {
+    students.push({ name, limit1, partial1, limit2, partial2, course, specialty });
+    saveStudents();
+    loadStudents();
+    closeAddStudentModal();
+  }
+}
+
+function deleteStudent() {
+  students.splice(studentToDelete, 1);
+  saveStudents();
+  loadStudents();
+  closeConfirmDeleteModal();
+}
+
+document.getElementById('savePartialButton').onclick = function() {
+  students[studentToEditPartial].name = document.getElementById('editStudentName').value;
+  students[studentToEditPartial].course = document.getElementById('editStudentCourse').value;
+  students[studentToEditPartial].specialty = document.getElementById('editStudentSpecialty').value;
+  students[studentToEditPartial].limit1 = parseInt(document.getElementById('editLimit1').value);
+  students[studentToEditPartial].partial1 = parseInt(document.getElementById('editPartial1').value);
+  students[studentToEditPartial].limit2 = parseInt(document.getElementById('editLimit2').value);
+  students[studentToEditPartial].partial2 = parseInt(document.getElementById('editPartial2').value);
+  saveStudents();
+  loadStudents();
+  closeEditPartialModal();
+};
+
+function openAddStudentModal() {
+  document.getElementById('addStudentModal').style.display = 'block';
+}
+
+function closeAddStudentModal() {
+  document.getElementById('addStudentModal').style.display = 'none';
+}
+
+function openConfirmDeleteModal(index) {
+  studentToDelete = index;
+  document.getElementById('confirmDeleteModal').style.display = 'block';
+}
+
+function closeConfirmDeleteModal() {
+  document.getElementById('confirmDeleteModal').style.display = 'none';
+}
+
+function openEditPartialModal(index) {
+  studentToEditPartial = index;
+  document.getElementById('editStudentName').value = students[index].name;
+  document.getElementById('editStudentCourse').value = students[index].course; // Corregido
+  document.getElementById('editStudentSpecialty').value = students[index].specialty;
+  document.getElementById('editLimit1').value = students[index].limit1;
+  document.getElementById('editPartial1').value = students[index].partial1;
+  document.getElementById('editLimit2').value = students[index].limit2;
+  document.getElementById('editPartial2').value = students[index].partial2;
+  document.getElementById('editPartialModal').style.display = 'block'; // Mostrar el modal
+}
+
+function closeEditPartialModal() {
+  document.getElementById('editPartialModal').style.display = 'none';
+}
+
+loadStudents();
+</script>
+  
+</body>
+</html> 
